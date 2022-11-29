@@ -17,9 +17,7 @@ app.use(cors())
 
 app.get('/film', async(req, res) =>{
     let conn;
-    console.log('Connexion')
     conn = await pool.getConnection();
-    console.log('Requète');
     const rows = await conn.query('SELECT * FROM film;')
     console.log(rows);
     res.status(200).json(rows)
@@ -38,9 +36,7 @@ app.get('/film/:id', async(req, res) =>{
 
 app.post('/film',async(req,res)=>{
     let conn;
-    console.log('Connexion');
     conn = await pool.getConnection();
-    console.log('Requète');
     await conn.query('INSERT INTO film(titre, duree) VALUES (?,?)',[req.body.titre,req.body.duree])
     const rows = await conn.query('SELECT * FROM film;')    
     console.log('Requète effectué');
@@ -50,9 +46,7 @@ app.post('/film',async(req,res)=>{
 app.put('/film/:id',async(req,res)=>{
     let conn;
     let id = parseInt(req.params.id)
-    console.log('Connexion');
     conn = await pool.getConnection();
-    console.log('Requète');
     await conn.query(`UPDATE film SET titre = ?, duree = ? WHERE id = ${id}`,[req.body.titre,req.body.duree])
     const rows = await conn.query('SELECT * FROM film;')    
     console.log('Requète effectué');
@@ -62,9 +56,7 @@ app.put('/film/:id',async(req,res)=>{
 app.delete('/film/:id', async(req, res) =>{
     let conn;
     let id = parseInt(req.params.id)
-    console.log('Connexion')
     conn = await pool.getConnection();
-    console.log('Requète');
     await conn.query(`DELETE FROM film WHERE id = ?;`,[id])
     const rows = await conn.query(`SELECT * FROM film;`)
     console.log(rows);
